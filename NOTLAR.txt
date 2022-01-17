@@ -1,0 +1,7 @@
+Yeni Proje Oluşturulursa Case Sensitive olarak Replace Olacaklar
+-----------------------------------------------------------------
+* Belge Arşivi Yönetim Sistemi
+* belge_arsivi_yonetim_sistemi
+* BAYS
+* Bays
+* bays

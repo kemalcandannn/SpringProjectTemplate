@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:composite="http://java.sun.com/jsf/composite"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+		xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+		xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<composite:interface>
+		<composite:attribute name="autoClear" default="#{true}" />
+		<composite:attribute name="label" default="#{labels.tc_kimlik_no}" />
+		<composite:attribute name="mask" default="99999999999" />
+		<composite:attribute name="ptDataTooltip" default="" />
+		<composite:attribute name="required" default="#{false}" />
+		<composite:attribute name="requiredMessage" default="" />
+		<composite:attribute name="validatorMessage" default="" />
+		<composite:attribute name="value" required="#{true}" />
+	</composite:interface>
+	
+	<composite:implementation>
+		<c:if test="#{cc.attrs.label != null and cc.attrs.label.trim() != ''}">
+			<p:outputLabel	value="#{cc.attrs.label}" 
+							styleClass="koyu" 
+							indicateRequired="#{cc.attrs.required}" 
+			/>
+		</c:if>
+		<p:inputMask	placeholder="#{cc.attrs.label}" 
+						value="#{cc.attrs.value}" 
+						mask="#{cc.attrs.mask}" 
+						autoClear="#{cc.attrs.autoClear}" 
+						required="#{cc.attrs.required}" 
+						requiredMessage="#{cc.attrs.requiredMessage}" 
+						validatorMessage="#{cc.attrs.validatorMessage}" 
+						pt:data-tooltip="#{cc.attrs.ptDataTooltip}" 
+		/>
+	</composite:implementation>
+</html>

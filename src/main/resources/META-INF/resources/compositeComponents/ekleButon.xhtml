@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:composite="http://java.sun.com/jsf/composite"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+		xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<composite:interface>
+		<composite:attribute name="action" method-signature="void action(javax.faces.event.ActionEvent)" default="null" />
+		<composite:attribute name="disabled" default="#{false}" />
+		<composite:attribute name="icon" default="pi pi-plus-circle" />
+		<composite:attribute name="onclick" />
+		<composite:attribute name="rendered" default="#{true}" />
+		<composite:attribute name="styleClass" />
+		<composite:attribute name="update" />
+		<composite:attribute name="value" default="#{labels.ekle}" />
+	</composite:interface>
+	
+	<composite:implementation>
+		<p:commandButton	icon="#{cc.attrs.icon}" 
+							styleClass="#{cc.attrs.styleClass}" 
+							value="#{cc.attrs.value}" 
+							action="#{cc.attrs.action}" 
+							disabled="#{cc.attrs.disabled}" 
+							rendered="#{cc.attrs.rendered}" 
+							onclick="#{cc.attrs.onclick}" 
+							update="#{cc.attrs.update}" 
+		/>
+	</composite:implementation>
+</html>

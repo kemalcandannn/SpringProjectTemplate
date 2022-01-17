@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:tpGenel="http://java.sun.com/jsf/composite/compositeComponents"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        
+        <title>BAYS - #{labels.parolami_unuttum}</title>
+        <link rel="shortcut icon" href="#{resource['public/img/icons/favicon.ico']}" type="image/x-icon" />
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+        
+ 
+    </h:head>
+
+    <h:body styleClass="login-body" >
+        
+        <h:form prependId="false" id="unuttumForm">
+        	<p:growl id="messages" showDetail="true" life="8000" />
+        	<p:growl id="msg" showDetail="true" life="4000" />
+        	<p:tooltip />
+        
+	        <div id="page">
+		        <div class="body-container">
+		            <div class="ui-g">
+		                <div class="ui-g-12 ui-lg-6 left-side imageStyle" >
+		                    <h:graphicImage name="/public/img/logo/logo.png" styleClass="graphicImageStyle" />
+		                </div>
+		                <div class="ui-g-12 ui-lg-6 right-side">
+		                    <div class="login-wrapper">
+		                        <div class="login-container paddingTop120" >
+		                            <span class="title">#{labels.belge_arsivi_yonetim_sistemi}</span>
+		                            <span class="title fontSize16" >Parola Hatırlatma</span>
+		
+		                            <div class="ui-g ui-fluid">
+		                                <div class="ui-g-12">
+		                                	<div class="ui-inputgroup">
+				                                <span class="ui-inputgroup-addon">
+				                                    <i class="fa fa-user"></i>
+				                                </span>
+												<p:inputText id="j_username" placeholder="#{labels.kullanici_adi_dt}" value="#{parolamiUnuttumController.kullanici_adi}" required="true" requiredMessage="#{hataKodlariController.hataMesajiGetir(907)}" pt:data-tooltip="Kullanıcı Adınızı Giriniz" />
+		                                    </div>
+		                                </div>
+		                                
+		                                <div class="ui-g-12">
+		                                    <div class="ui-inputgroup">
+				                                <span class="ui-inputgroup-addon">
+				                                    <i class="fa fa-phone"></i>
+				                                </span>
+												<tpGenel:telefonComponent id="j_telephone" 
+																		  placeholder="#{labels.cep_tel}" 
+																		  value="#{parolamiUnuttumController.cep_telefonu}" 
+																		  required="true" 
+																		  requiredMessage="#{hataKodlariController.hataMesajiGetir(908)}" 
+																		  validatorMessage="#{hataKodlariController.hataMesajiGetir(910)}" 
+																		  ptDataTooltip="Sistemde Kayıtlı Telefon Numaranızı Giriniz" />
+				                                
+<!-- 												<p:inputText id="j_telephone" placeholder="#{labels.cep_tel}" value="#{parolamiUnuttumController.cep_telefonu}" required="true" requiredMessage="#{hataKodlariController.hataMesajiGetir(908)}" validatorMessage="#{hataKodlariController.hataMesajiGetir(910)}" pt:data-tooltip="Sistemde Kayıtlı Telefon Numaranızı Giriniz"> -->
+<!-- 													<f:validateRegex pattern="^(05[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9])?$" /> -->
+<!-- 												</p:inputText> -->
+		                                    </div>
+		                                </div>
+		                                
+		                                <div class="ui-g-12">
+		                                    <div class="ui-inputgroup">
+				                                <span class="ui-inputgroup-addon">
+				                                    <i class="fa fa-user"></i>
+				                                </span>
+												<p:inputText id="j_uyap_username" placeholder="#{labels.uyap_kullanici_adi2}" value="#{parolamiUnuttumController.uyap_kullanici_adi}" required="true" requiredMessage="#{hataKodlariController.hataMesajiGetir(909)}" pt:data-tooltip="UYAP Kullanıcı Adınızı Giriniz" />
+		                                    </div>
+		                                </div>
+												
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		                                
+										<div class="ui-g-6">
+											<p:commandButton id="unuttumButton" value="#{labels.gonder}" action="#{parolamiUnuttumController.parolamiUnuttum}" update="unuttumForm,messages" icon="fa fa-sign-in" />
+										</div>
+										<div class="ui-g-6">
+											<p:commandButton id="iptal" value="#{labels.iptal}" onclick="window.location.href='login.xhtml';"/>
+										</div>
+		                                
+		                                
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+	        </div>
+        
+        
+        </h:form>
+        
+
+        <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="apollo-layout" />
+        <h:outputScript library="js" name="login.js" id="loginsurum1"/>
+        <h:outputStylesheet library="css" name="custom.css"/>
+    </h:body>
+
+</html>

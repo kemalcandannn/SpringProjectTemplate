@@ -1,0 +1,44 @@
+------------------------------------------------------------------------
+--------------------------- 12/01/2022 11:30 ---------------------------
+------------------------------------------------------------------------
+
+DROP DATABASE bays;
+CREATE DATABASE bays
+    WITH 
+    OWNER = postgres
+	TEMPLATE = 'template0'
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'tr_TR.UTF8'
+    LC_CTYPE = 'tr_TR.UTF8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
+CREATE SEQUENCE public.hibernate_sequence INCREMENT 1 START 1 MINVALUE 1;
+
+CREATE TABLE kullanici (
+	id SERIAL PRIMARY KEY,
+	kullanici_adi VARCHAR UNIQUE NOT NULL,
+	parola VARCHAR NOT NULL,
+	parola_degistir SMALLINT NOT NULL DEFAULT 0,
+	parola_degistirme_tarihi TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	tc_kimlik_no CHAR(11) NOT NULL,
+	ad VARCHAR NOT NULL,
+	soyad VARCHAR NOT NULL,
+	cinsiyet SMALLINT NOT NULL DEFAULT 0,
+	dogum_tarihi TIMESTAMP
+);
+
+CREATE TABLE kullanici_iletisim (
+	id SERIAL PRIMARY KEY,
+	kullanici_id INTEGER NOT NULL,
+	aktif SMALLINT NOT NULL,
+	eposta VARCHAR UNIQUE,
+	cep_telefonu VARCHAR UNIQUE,
+	
+	FOREIGN KEY (kullanici_id) 
+	REFERENCES kullanici (id) 
+	ON UPDATE CASCADE 
+	ON DELETE CASCADE
+);
+CREATE INDEX ON kullanici_iletisim (kullanici_id);
+

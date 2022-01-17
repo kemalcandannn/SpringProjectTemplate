@@ -1,0 +1,55 @@
+@import "compass/css3";
+
+body {
+  font-family: Helvetica, 'メイリオ', Meiryo;
+  background-color: #666;
+}
+p {
+  color: #fff;
+  text-align: center;
+}
+.sortable {
+  width: 300px;
+  margin: 20px auto;
+  padding: 0;
+  background-color: #ccc;
+  @include box-shadow(0 3px 10px rgba(#000,.7));
+  @include border-radius(4px);
+  @include user-select(none);
+  overflow: hidden;
+}
+li {
+  list-style: none;
+  border-top: solid 1px #ccc;
+  background-color: #fff;
+  //margin-bottom: -1px;
+  cursor: pointer;
+  &:first-child {
+    border-top: none;
+    @include border-radius(4px 4px 0 0);
+  }
+  &:last-child {
+    @include border-radius(0 0 4px 4px);
+  }
+  .sort-handle {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    cursor: n-resize;
+  }
+}
+
+.sortable {
+  .ui-sortable-helper {
+    @include border-radius(4px);
+  }
+  .ui-selecting {
+    background-color: #eee;
+  }
+  .ui-selected {
+    background-color: #999;
+    color: #fff;
+    cursor: n-resize;
+  }
+}

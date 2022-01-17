@@ -1,0 +1,8 @@
+1. GitHub'ta boş bir repository oluştur.
+2. Proje dizinine git ve aşağıdaki komutları çalıştır.
+2. git init
+3. git add .
+4. git commit -m "First Commit"
+5. git remote add origin [GitHub Repository Address (https://github.com/kemalcandannn/BAYS.git)]
+6. git remote -v
+7. git push origin master

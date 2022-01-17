@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:composite="http://java.sun.com/jsf/composite"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+		xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<composite:interface>
+		<composite:attribute name="ajaxListener" default="#{sessionController.onItemSelect()}" method-signature="void onItemSelect()" />
+		<composite:attribute name="ajaxPartialSubmit" default="#{false}" />
+		<composite:attribute name="ajaxProcess" default="@this" />
+		<composite:attribute name="ajaxUpdate" />
+		<composite:attribute name="converterMessage" default="#{labels.tarih_format_uyarisi}" />
+		<composite:attribute name="disabled" default="#{false}" />
+		<composite:attribute name="inputStyle" />
+		<composite:attribute name="inputStyleClass" />
+		<composite:attribute name="label" />
+		<composite:attribute name="locale" default="tr" />
+		<composite:attribute name="mask" default="#{true}" />
+		<composite:attribute name="maxdate" />
+		<composite:attribute name="mindate" />
+		<composite:attribute name="pattern" default="dd/MM/yyyy" />
+		<composite:attribute name="placeholder" />
+		<composite:attribute name="readOnlyInput" default="#{false}" />
+		<composite:attribute name="rendered" />
+		<composite:attribute name="required" default="#{false}" />
+		<composite:attribute name="requiredMessage" default="" />
+		<composite:attribute name="styleClass" />
+		<composite:attribute name="tabindex" default="" />
+		<composite:attribute name="validatorMessage" default="#{labels.tarih_kosul_uyarisi}" />
+		<composite:attribute name="value" />
+	</composite:interface>
+	
+	<composite:implementation>
+		<c:if test="#{cc.attrs.label != null and cc.attrs.label.trim() != ''}">
+			<p:outputLabel	value="#{cc.attrs.label}" 
+							styleClass="koyu" 
+							indicateRequired="#{cc.attrs.required}" 
+			/>
+		</c:if>
+		<p:calendar	placeholder="#{cc.attrs.placeholder}" 
+					value="#{cc.attrs.value}" 
+					inputStyle="#{cc.attrs.inputStyle}" 
+					styleClass="#{cc.attrs.styleClass}" 
+					locale="#{cc.attrs.locale}" 
+					lang="#{cc.attrs.locale}" 
+					showOn="button" 
+					pattern="#{cc.attrs.pattern}" 
+					mask="#{cc.attrs.mask}" 
+					mindate="#{cc.attrs.mindate}" 
+					maxdate="#{cc.attrs.maxdate}" 
+					converterMessage="#{cc.attrs.converterMessage}" 
+					validatorMessage="#{cc.attrs.validatorMessage}" 
+					disabled="#{cc.attrs.disabled}" 
+					readonlyInput="#{cc.attrs.readOnlyInput}" 
+					rendered="#{cc.attrs.rendered}" 
+					required="#{cc.attrs.required}" 
+					requiredMessage="#{cc.attrs.requiredMessage}" 
+					inputStyleClass="#{cc.attrs.inputStyleClass}" 
+					tabindex="#{cc.attrs.tabindex}"
+		>
+	
+			<p:ajax	event="dateSelect" 
+					listener="#{cc.attrs.ajaxListener}" 
+					partialSubmit="#{cc.attrs.ajaxPartialSubmit}" 
+					process="#{cc.attrs.ajaxProcess}" 
+					update="#{cc.attrs.ajaxUpdate}" 
+			/>
+			<p:ajax event="change" 
+					listener="#{cc.attrs.ajaxListener}" 
+					partialSubmit="#{cc.attrs.ajaxPartialSubmit}" 
+					process="#{cc.attrs.ajaxProcess}" 
+					update="#{cc.attrs.ajaxUpdate}" 
+			/>
+		</p:calendar>
+	</composite:implementation>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        
+        <title>BAYS - #{labels.sisteme_giris}</title>
+		<link rel="shortcut icon" href="#{resource['public/img/icons/favicon.ico']}" type="image/x-icon" />
+		
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+ 
+    </h:head>
+
+    <h:body styleClass="login-body loginStyleClass" >
+        
+        <h:form prependId="false" id="loginForm">
+        	<p:growl id="msg" showDetail="true" life="4000" />
+        	<p:tooltip />
+        
+	        <div id="page">
+		        <div class="body-container">
+	            	<p:progressBar id="nonAjaxLoad" styleClass="progressBarStyle" mode="indeterminate"/>
+		            <div class="ui-g">
+		                <div class="ui-g-12 ui-lg-6 left-side imageStyle" >
+		                    <h:graphicImage name="/public/img/logo/logo-asgm.png" styleClass="graphicImageStyle"/>
+		                </div>
+		                <div class="ui-g-12 ui-lg-6 right-side">
+		                    <div class="login-wrapper">
+		                        <div class="login-container paddingTop120" >
+		                            <span class="title">#{labels.belge_arsivi_yonetim_sistemi}</span>
+		                            <span class="title fontSize16">#{labels.sisteme_giris}</span>
+		                            <span class="title login_bilgi">BAYS yazılımında yetkilendirilmiş personel iseniz lütfen kullanıcı adı ve şifrenizi giriniz.</span>
+		                            <h:inputHidden id="ssoTokenInput" />
+		
+		                            <div class="ui-g ui-fluid">
+		                                <div class="ui-g-12">
+		                                	<div class="ui-inputgroup">
+				                                <span class="ui-inputgroup-addon">
+				                                    <i class="fa fa-user"></i>
+				                                </span>
+				                                <p:focus />
+				                                <p:inputText required="true" id="j_username" placeholder="Kullanıcı Adı" autocomplete="off" pt:data-tooltip="Kullanıcı Adınızı Giriniz">
+													 <f:validateRequired />
+												</p:inputText>
+		                                    </div>
+		                                </div>
+		                                
+		                                <div class="ui-g-12">
+		                                    <div class="ui-inputgroup">
+				                                <span class="ui-inputgroup-addon">
+				                                    <i class="fa fa-lock"></i>
+				                                </span>
+		                                    	<p:password required="true" id="j_password" placeholder="Parola" autocomplete="off" feedback="false" pt:data-tooltip="Parolanızı Giriniz">
+													 <f:validateRequired />
+												</p:password>
+		                                    </div>
+		                                </div>
+		                                
+										<h:panelGroup layout="block" rendered="${!empty param and !param['gecersizKulCaptchasizError']}">
+											<div class="ui-g-12 padding0" >
+											<p:graphicImage id="captchaImage" styleClass="showCaptcha" alt="captcha" value="/captcha-servlet"/>
+											<a href="#"><i id="captchaRef" class="pi pi-refresh showCaptcha fontSizeIkiBucumEm"></i></a>
+											</div>
+										</h:panelGroup>
+										
+										<h:panelGroup layout="block" rendered="${!empty param and !param['gecersizKulCaptchasizError']}">
+											<div class="ui-g-12 paddingTop0">
+											<p:inputText styleClass="showCaptcha textAlingCenter" id="j_bilgi" placeholder="Resimdeki Bilgiyi Giriniz" autocomplete="off" />
+											</div>
+										</h:panelGroup>
+		                                
+		                                
+		                                <h:panelGroup layout="block" rendered="${!empty param}">
+		                                	<div class="ui-g-6">
+			                                    <p:commandButton rendered="${!empty param}" id="loginButton" value="Giriş" icon="fa fa-sign-in" ajax="false" update="loginForm">
+			                                    	<f:param name="captcha" value="1" />
+			                                    </p:commandButton>
+		                                    </div>
+		                                </h:panelGroup>
+										
+		                                <h:panelGroup layout="block" rendered="${empty param}">
+			                                <div class="ui-g-6">
+			                                    <p:commandButton rendered="${empty param}" id="loginButton2" value="Giriş" ajax="false" update="loginForm" icon="fa fa-sign-in"></p:commandButton>
+			                                </div>
+		                                </h:panelGroup>
+		                                
+		                                <div class="ui-g-6 password-container">
+		                                    <p:link outcome="parolamiUnuttum">Parolamı Unuttum</p:link>
+		                                </div>
+		                                
+		                                <div class="ui-g-12">
+			                                <div class="ui-g">
+			                                	<p:outputLabel styleClass="fail uyariMesaji" value="Yetkisiz işlem gerçekleşti. 5 dakika sonra tekrar deneyiniz." rendered="${!empty param['yetkisizError']}" />
+			                                </div>
+			                                <div class="ui-g">
+            									<p:outputLabel styleClass="fail uyariMesaji" value="5 başarısız giriş gerçekleşti. 5 dakika sonra tekrar deneyiniz." rendered="${!empty param['5giris']}" />
+            								</div>
+            								<div class="ui-g">
+												<p:outputLabel styleClass="fail uyariMesaji" value="Yetkisiz IP" rendered="${!empty param['ipError']}" />
+											</div>
+											<div class="ui-g">
+												<p:outputLabel styleClass="fail uyariMesaji" value="Kullanıcı adı ve/veya parola bilgisi hatalıdır." rendered="${!empty param['error']}" />
+											</div>
+											<div class="ui-g">
+												<p:outputLabel styleClass="fail uyariMesaji" value="Güvenlik kodu hatalı veya eksik girilmiştir. Lütfen kontrol ederek tekrar deneyiz." rendered="${!empty param['captchaError']}" />
+											</div>
+											<div class="ui-g">
+												<p:outputLabel styleClass="fail uyariMesaji" value="Kullanıcı adı ve/veya parola bilgisi hatalıdır." rendered="${!empty param['gecersizKulError']}" />
+											</div>
+											<div class="ui-g">
+												<p:outputLabel styleClass="fail uyariMesaji" value="Kullanıcı adı ve/veya parola bilgisi hatalıdır." rendered="${!empty param['gecersizKulCaptchasizError']}" />
+											</div>
+											<div class="ui-g">
+												<p:outputLabel styleClass="fail uyariMesaji" value="Zorunlu alanları doldurunuz." rendered="${!empty param['bosAlanError']}" />
+											</div>
+											
+											<p:outputLabel id="zorunluAlanJs" styleClass="fail uyariMesaji gorunmez" value="Zorunlu alanları doldurunuz."  />
+										</div>
+		                                
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+	        </div>
+        
+        
+        </h:form>
+        
+
+        <h:outputStylesheet name="css/layout-#{guestPreferences.theme}.css" library="apollo-layout" />
+        <h:outputStylesheet library="css" name="custom.css"/>
+        <h:outputScript library="js" name="login.js" id="loginsurum1"/>
+    </h:body>
+
+</html>

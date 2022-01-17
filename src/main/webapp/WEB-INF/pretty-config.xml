@@ -1,0 +1,41 @@
+<pretty-config  xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces" 
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+				xsi:schemaLocation="http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd 
+									http://ocpsoft.org/schema/rewrite-config-prettyfaces">
+
+	<url-mapping id="ilce">
+		<pattern value="/ilce" />
+		<view-id value="/kurumsal/ilceCrud.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="kullanici">
+		<pattern value="/kullanici" />
+		<view-id value="/kullanici/kullaniciCrud.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="login">
+		<pattern value="/login" />
+		<view-id value="/login.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="index">
+		<pattern value="/index" />
+		<view-id value="/index.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="yetkisiz">
+		<pattern value="/yetkisiz" />
+		<view-id value="/error/yetkisiz.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="tanimsiz">
+		<pattern value="/tanimsiz" />
+		<view-id value="/error/tanimsiz.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="parolaDegistir">
+		<pattern value="/parolaDegistir" />
+		<view-id value="/kullanici/parolaDegistir.xhtml" />
+	</url-mapping>
+
+</pretty-config>

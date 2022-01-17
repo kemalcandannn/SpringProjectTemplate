@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition	xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:algan="http://java.sun.com/jsf/composite/compositeComponents"
+				template="/WEB-INF/layout.xhtml">
+
+	<ui:define name="title">#{labels.kullanici}</ui:define>
+	<ui:define name="viewname">
+		<ui:fragment rendered="#{!kullaniciController.formGoster and !kullaniciIletisimController.panel}">#{labels.kullanici}</ui:fragment>
+
+		<ui:fragment rendered="#{kullaniciController.formGoster and (kullaniciController.secilen.id == null or kullaniciController.secilen.id == 0)}">
+			<p:commandLink action="#{kullaniciController.iptal}" update="kullanici_form,kullanici_islem_form,breadcrump_form" ajax="false">
+				<h:outputText value="#{labels.kullanici}" styleClass="breadCrumpLink" />
+			</p:commandLink> /  #{labels.ekle}
+	    </ui:fragment>
+
+		<ui:fragment rendered="#{kullaniciController.formGoster and (kullaniciController.secilen.id != null and kullaniciController.secilen.id != 0)}">
+			<p:commandLink action="#{kullaniciController.iptal}" update="kullanici_form,kullanici_islem_form,breadcrump_form" ajax="false">
+				<h:outputText value="#{labels.kullanici}" styleClass="breadCrumpLink" />
+			</p:commandLink> /  #{labels.guncelle}
+	    </ui:fragment>
+
+		<ui:fragment rendered="#{kullaniciIletisimController.panel and !kullaniciIletisimController.formGoster}">
+			<p:commandLink action="#{kullaniciIletisimController.geri()}" update="kullaniciIletisimPanel,kullanici_form,breadcrump_form" ajax="false">
+				<h:outputText value="#{labels.kullanici}" styleClass="breadCrumpLink" />
+			</p:commandLink> /  #{labels.iletisim_bilgileri}
+	    </ui:fragment>
+
+		<ui:fragment rendered="#{kullaniciIletisimController.panel and kullaniciIletisimController.formGoster and (kullaniciIletisimController.secilen.id == null or kullaniciIletisimController.secilen.id == 0)}">
+			<p:commandLink action="#{kullaniciIletisimController.iptal()}" update="kullaniciIletisimPanel,kullanici_form,breadcrump_form" ajax="false">
+				<h:outputText value="#{labels.kullanici}" styleClass="breadCrumpLink" />
+				<f:actionListener binding="#{kullaniciIletisimController.geri()}" />
+			</p:commandLink> / <p:commandLink action="#{kullaniciIletisimController.iptal()}" update="kullanici_iletisim_form,kullanici_iletisim_islem_form,breadcrump_form" ajax="false">
+				<h:outputText value="#{labels.iletisim_bilgileri}" styleClass="breadCrumpLink" />
+			</p:commandLink> / #{labels.ekle}
+	    </ui:fragment>
+
+		<ui:fragment rendered="#{kullaniciIletisimController.panel and kullaniciIletisimController.formGoster and (kullaniciIletisimController.secilen.id != null and kullaniciIletisimController.secilen.id != 0)}">
+			<p:commandLink action="#{kullaniciIletisimController.iptal()}" update="kullaniciIletisimPanel,kullanici_form,breadcrump_form" ajax="false">
+				<h:outputText value="#{labels.kullanici}" styleClass="breadCrumpLink" />
+				<f:actionListener binding="#{kullaniciIletisimController.geri()}" />
+			</p:commandLink> / <p:commandLink action="#{kullaniciIletisimController.iptal()}" update="kullanici_iletisim_form,kullanici_iletisim_islem_form,breadcrump_form" ajax="false">
+				<h:outputText value="#{labels.iletisim_bilgileri}" styleClass="breadCrumpLink" />
+			</p:commandLink> / #{labels.guncelle}
+	    </ui:fragment>
+	</ui:define>
+
+	<ui:define name="content">
+		<div class="dashboard">
+			<div class="ui-g-12 ui-md-12 ui-lg-12">
+				<h:form id="kullanici_form">
+					<p:panel header="#{labels.kullanici}" styleClass="marginBottom10" rendered="#{!kullaniciController.formGoster and !kullaniciIletisimController.panel}">
+						<p:panelGrid columns="3" columnClasses="ui-g-12 ui-md-4,ui-g-12 ui-md-4,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+							<algan:tckn	id="tc_kimlik_no" 
+										value="#{kullaniciController.sorguKriteri.tc_kimlik_no}" />
+							
+							<algan:inputText id="ad" 
+											 label="#{labels.ad}" 
+											 value="#{kullaniciController.sorguKriteri.ad}" />
+							
+							<algan:inputText id="soyad" 
+											 label="#{labels.soyad}" 
+											 value="#{kullaniciController.sorguKriteri.soyad}" />
+
+							<algan:radio	id="cinsiyet" 
+											label="#{labels.cinsiyet}" 
+											value="#{kullaniciController.sorguKriteri.cinsiyet}" 
+											store="#{storeController.cinsiyetStore}" />
+
+							<algan:tarih	id="dogum_tarihi" 
+											label="#{labels.dogum_tarihi}" 
+											value="#{kullaniciController.sorguKriteri.dogum_tarihi}" />
+							
+							<algan:inputText id="kullanici_adi" 
+											 label="#{labels.kullanici_adi}" 
+											 value="#{kullaniciController.sorguKriteri.kullanici_adi}" />
+
+							<algan:store	id="parola_degistir" 
+											label="#{labels.parola_degistir}" 
+											value="#{kullaniciController.sorguKriteri.parola_degistir}" 
+											store="#{storeController.gerekliStore}" />
+
+							<algan:tarih	id="parola_degistirme_tarihi" 
+											label="#{labels.parola_degistirme_tarihi}" 
+											value="#{kullaniciController.sorguKriteri.parola_degistirme_tarihi}" />
+						</p:panelGrid>
+
+						<algan:sorgulaButon id="sorgula" 
+											update="kullanici_form:tablo_panel" />
+
+						<algan:temizleButon id="temizle" 
+											action="#{kullaniciController.formTemizle()}" 
+											update="kullanici_form" />
+					</p:panel>
+
+					<p:panel id="tablo_panel" rendered="#{!kullaniciController.formGoster and !kullaniciIletisimController.panel}">
+						<p:outputPanel id="crud_button">
+							<div class="ui-g">
+								<div class="ui-g-12 sol_padding_sifir">
+									<algan:ekleButon id="ekle" 
+													 action="#{kullaniciController.ekleFormAc()}"
+													 rendered="#{sessionController.yetkiliMi('kullanici_ekle')}"
+													 update="kullanici_form,kullanici_islem_form,breadcrump_form" />
+
+									<algan:silButon id="sil" 
+													action="#{kullaniciController.sil()}" 
+													rendered="#{sessionController.yetkiliMi('kullanici_sil')}" 
+													disabled="#{kullaniciController.secilen == null}" 
+													update="kullanici_form:tablo_panel,messages" />
+
+									<algan:guncelleButon id="guncelle" 
+														 action="#{kullaniciController.guncelleFormAc()}" 
+														 rendered="#{sessionController.yetkiliMi('kullanici_guncelle')}" 
+														 disabled="#{kullaniciController.secilen == null}" 
+														 update="kullanici_form,kullanici_islem_form,breadcrump_form" />
+
+									<p:commandButton id="iletisim_bilgileri" 
+													 value="#{labels.iletisim_bilgileri}" 
+													 action="#{kullaniciIletisimController.tabloFormAc(kullaniciController.secilen)}" 
+													 disabled="#{kullaniciController.secilen == null}" 
+													 update="kullanici_form,kullaniciIletisimPanel,breadcrump_form" />
+								</div>
+							</div>
+						</p:outputPanel>
+
+						<algan:datatable id="kullaniciListesi" 
+										 selection="#{kullaniciController.secilen}" 
+										 value="#{kullaniciController.list}" 
+										 rowStyleClass="ortala"
+										 rowSelectUpdate="kullanici_islem_form,kullanici_form:crud_button">
+
+							<p:column headerText="#{labels.tc_kimlik_no}" sortBy="#{item.tc_kimlik_no}">
+								<h:outputText value="#{item.tc_kimlik_no}" />
+							</p:column>
+
+							<p:column headerText="#{labels.ad}" sortBy="#{item.ad}">
+								<h:outputText value="#{item.ad}" />
+							</p:column>
+
+							<p:column headerText="#{labels.soyad}" sortBy="#{item.soyad}">
+								<h:outputText value="#{item.soyad}" />
+							</p:column>
+
+							<p:column	headerText="#{labels.cinsiyet}" 
+										sortBy="#{item.cinsiyet}">
+								<h:outputText value="#{storeController.getLabel(storeController.cinsiyetStore, item.cinsiyet)}" />
+							</p:column>
+
+							<p:column headerText="#{labels.dogum_tarihi}" sortBy="#{item.dogum_tarihi}">
+								<h:outputText value="#{item.dogum_tarihi}">
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="#{labels.kullanici_adi}" sortBy="#{item.kullanici_adi}">
+								<h:outputText value="#{item.kullanici_adi}" />
+							</p:column>
+
+							<p:column	headerText="#{labels.parola_degistir}" 
+										sortBy="#{item.parola_degistir}">
+								<h:outputText value="#{storeController.getLabel(storeController.gerekliStore, item.parola_degistir)}" />
+							</p:column>
+
+							<p:column headerText="#{labels.parola_degistirme_tarihi}" sortBy="#{item.parola_degistirme_tarihi}">
+								<h:outputText value="#{item.parola_degistirme_tarihi}">
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm"/>
+								</h:outputText>
+							</p:column>
+						</algan:datatable>
+					</p:panel>
+
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				</h:form>
+
+				<h:form id="kullanici_islem_form">
+					<p:panel header="#{labels.kullanici}" rendered="#{kullaniciController.formGoster}">
+						<p:panelGrid columns="3" columnClasses="ui-g-12 ui-md-4,ui-g-12 ui-md-4,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid margin_bottom_10">
+							
+							<algan:tckn	id="tc_kimlik_no" 
+										value="#{kullaniciController.secilen.tc_kimlik_no}" 
+										required="true" 
+										requiredMessage="#{hataKodlariController.hataMesajiGetir(1, labels.tc_kimlik_no, labels.zorunlu_alan_mesaji)}" />
+							
+							<algan:inputText id="ad" 
+											 label="#{labels.ad}" 
+											 value="#{kullaniciController.secilen.ad}" 
+											 required="true" 
+											 requiredMessage="#{hataKodlariController.hataMesajiGetir(1, labels.ad, labels.zorunlu_alan_mesaji)}" />
+							
+							<algan:inputText id="soyad" 
+											 label="#{labels.soyad}" 
+											 value="#{kullaniciController.secilen.soyad}" 
+											 required="true" 
+											 requiredMessage="#{hataKodlariController.hataMesajiGetir(1, labels.soyad, labels.zorunlu_alan_mesaji)}" />
+
+							<algan:radio	id="cinsiyet" 
+											label="#{labels.cinsiyet}" 
+											value="#{kullaniciController.secilen.cinsiyet}" 
+											store="#{storeController.cinsiyetStore}" 
+											required="true" 
+											requiredMessage="#{hataKodlariController.hataMesajiGetir(1, labels.cinsiyet, labels.zorunlu_alan_mesaji)}" />
+
+							<algan:tarih	id="dogum_tarihi" 
+											label="#{labels.dogum_tarihi}" 
+											value="#{kullaniciController.secilen.dogum_tarihi}" 
+											required="false" 
+											requiredMessage="#{hataKodlariController.hataMesajiGetir(1, labels.dogum_tarihi, labels.zorunlu_alan_mesaji)}" />
+							
+							<algan:inputText id="kullanici_adi" 
+											 label="#{labels.kullanici_adi}" 
+											 value="#{kullaniciController.secilen.kullanici_adi}" 
+											 required="true" 
+											 requiredMessage="#{hataKodlariController.hataMesajiGetir(1, labels.kullanici_adi, labels.zorunlu_alan_mesaji)}" />
+							
+							<algan:inputText id="parola" 
+											 label="#{labels.parola}" 
+											 value="#{kullaniciController.secilen.parola}" />
+
+						</p:panelGrid>
+
+						<div class="ortala">
+							<algan:kaydetButon id="kaydet" 
+											   action="#{kullaniciController.kaydet()}" 
+											   update="kullanici_form,kullanici_islem_form,breadcrump_form,messages" />
+
+							<algan:iptalButon id="iptal" 
+											  action="#{kullaniciController.iptal()}" 
+											  update="kullanici_form,kullanici_islem_form,breadcrump_form" />
+
+							<p:hotkey bind="f5" process="@this" update="kullanici_islem_form">
+								<p:resetInput target="kullanici_islem_form" />
+							</p:hotkey>
+						</div>
+					</p:panel>
+
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				</h:form>
+
+				<p:panel id="kullaniciIletisimPanel" class="noborder">
+					<ui:include src="/kullanici/kullaniciIletisimCrud.xhtml" />
+				</p:panel>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

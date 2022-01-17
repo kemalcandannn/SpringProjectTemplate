@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+    http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+
+	<application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+		
+		<locale-config>
+            <default-locale>tr</default-locale>
+        </locale-config>
+
+        <resource-bundle>
+            <base-name>lang/labels</base-name>
+            <var>labels</var>
+        </resource-bundle>
+	</application>
+	
+	<component>
+        <component-type>org.primefaces.component.CaliforniaMenu</component-type>
+        <component-class>org.primefaces.california.component.menu.CaliforniaMenu</component-class>
+    </component>
+    
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.CaliforniaMenuRenderer</renderer-type>
+            <renderer-class>org.primefaces.california.component.menu.CaliforniaMenuRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+    
+    <converter>
+	    <converter-id>toUpperCaseConverter</converter-id>
+	    <converter-class>util.ToUpperCaseConverter</converter-class>
+	</converter>
+    
+    <converter>
+	    <converter-id>toLowerCaseConverter</converter-id>
+	    <converter-class>util.ToLowerCaseConverter</converter-class>
+	</converter>
+</faces-config>

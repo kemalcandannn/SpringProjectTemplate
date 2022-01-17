@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+				xmlns:tp="http://java.sun.com/jsf/composite/compositeComponents"
+				xmlns:tpGenel="http://java.sun.com/jsf/composite/compositeComponents/genel"
+				template="/WEB-INF/layout.xhtml">
+
+	<ui:define name="title">#{labels.parola_guncelle}</ui:define>
+	<ui:define name="viewname">#{labels.parola_guncelle}</ui:define>
+
+	<ui:define name="content">
+		<div class="dashboard">
+			<div class="ui-g-12 ui-md-12 ui-lg-12">
+				<h:form id="parolaGuncellemeFormu" styleClass="marginTop10">
+					<p:panel header="#{labels.parola_guncelle}">
+						<p:outputPanel id="parolaDegistirDetail" styleClass="saga_yasla">
+							<p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-2,ui-g-12 ui-md-4,ui-g-12 ui-md-2,ui-g-12 ui-md-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+								<h:outputLabel styleClass="koyu" value="#{labels.mevcut_parola}" />
+								<p:inputText id="mevcutParola"
+											 value="#{kullaniciController.mevcutParola}"
+											 placeholder="#{labels.mevcut_parola}" 
+											 required="true"
+											 requiredMessage="#{hataKodlariController.hataMesajiGetir(1, labels.mevcut_parola, labels.zorunlu_alan_mesaji)}"
+											 type="password" />
+
+								<h:outputLabel styleClass="koyu" value="#{labels.yeni_parola}" />
+								<p:inputText id="yeniParola" 
+											 value="#{kullaniciController.yeniParola}"
+											 placeholder="#{labels.yeni_parola}" 
+											 required="true"
+											 requiredMessage="#{hataKodlariController.hataMesajiGetir(1, labels.yeni_parola, labels.zorunlu_alan_mesaji)}"
+											 type="password">
+									
+								</p:inputText>
+
+								<h:outputLabel styleClass="koyu" value="#{labels.yeni_parola_tekrar}" />
+								<p:inputText id="parolaTekrar" 
+											 value="#{kullaniciController.yeniParolaTekrar}"
+											 placeholder="#{labels.yeni_parola_tekrar}" 
+											 required="true"
+											 requiredMessage="#{hataKodlariController.hataMesajiGetir(1, labels.yeni_parola_tekrar, labels.zorunlu_alan_mesaji)}"
+											 type="password">
+								</p:inputText>
+
+								<h:inputHidden></h:inputHidden>
+								<p:panelGrid columns="2" styleClass="floatRight">
+									<p:commandButton value="#{labels.guncelle}"
+													 icon="pi pi-save"
+													 action="#{kullaniciController.parolaGuncelle}"
+													 update="messages" 
+													 styleClass="width120px floatRight" />
+									<p:commandButton value="#{labels.iptal}" 
+													 update="messages"
+													 icon="pi pi-times-circle" 
+													 immediate="true"
+													 styleClass="width120px floatRight"
+										action="/index.xhtml?faces-redirect=true" />
+								</p:panelGrid>
+							</p:panelGrid>
+						</p:outputPanel>
+					</p:panel>
+
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				</h:form>
+			</div>
+		</div>
+
+	</ui:define>
+</ui:composition>

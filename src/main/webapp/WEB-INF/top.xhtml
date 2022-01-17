@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="tr" xml:lang="tr" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:pa="http://primefaces.org/apollo"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head><title></title></h:head>
+	
+	<body>
+		<div class="topbar clearfix top2DivStyle">
+			<p:link outcome="/index">
+				<p:graphicImage styleClass="logo top2GraphImage" library="apollo-layout" name="images/logo-bays.png" />
+			</p:link>
+	
+			<a id="menu-button" href="#" class="lineHeight70Important"><i class="fa fa-align-left" /></a>
+	
+			<h:outputText value="#{labels.belge_arsivi_yonetim_sistemi}" styleClass="topbar-baslik-apollo" />
+	
+			<a href="#" class="profile marginTop10Important">
+				<span class="username userNameColor">#{kullaniciController.sessionAdSoyadGetir()}</span>
+				<i class="fa fa-angle-down userNameColor" />
+			</a>
+
+			<span class="topbar-themeswitcher marginTop5Important"> 
+				<h:form>
+					<p:inputSwitch value="#{guestPreferences.dark}">
+						<p:ajax listener="#{guestPreferences.changeScheme}" oncomplete="setTimeout(function() {document.forms[0].submit()}, 500)" />
+					</p:inputSwitch>
+
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				</h:form>
+			</span>
+	
+			<ul class="topbar-menu fadeInDown">
+				<li>
+					<a href="/parolaDegistir">
+						<i class="topbar-icon fa fa-fw fa-user" />
+						<span class="topbar-item-name">#{labels.parola_guncelle}</span>
+					</a>
+				</li>
+	
+				<li>
+					<a href="#">
+						<i class="topbar-icon fa fa-fw fa-adjust" />
+						<span class="topbar-item-name dikey_hizalama">#{labels.renk_secimi}</span>
+					</a>
+					<ul>
+						<li>
+							<h:form id="menuform234">
+								<h:commandLink actionListener="#{guestPreferences.updateTheme('blue')}">
+									<i class="fa fa-paint-brush" /><span>#{labels.mavi}</span>
+								</h:commandLink>
+								<h:commandLink actionListener="#{guestPreferences.updateTheme('green')}">
+									<i class="fa fa-paint-brush" /><span>#{labels.yesil}</span>
+								</h:commandLink>
+								<h:commandLink actionListener="#{guestPreferences.updateTheme('cyan')}">
+									<i class="fa fa-paint-brush" /><span>#{labels.cam_gobegi}</span>
+								</h:commandLink>
+								<h:commandLink actionListener="#{guestPreferences.updateTheme('purple')}">
+									<i class="fa fa-paint-brush" /><span>#{labels.mor}</span>
+								</h:commandLink>
+								<h:commandLink actionListener="#{guestPreferences.updateTheme('indigo')}">
+									<i class="fa fa-paint-brush" /><span>#{labels.civit}</span>
+								</h:commandLink>
+								<h:commandLink actionListener="#{guestPreferences.updateTheme('yellow')}">
+									<i class="fa fa-paint-brush" /><span>#{labels.sari}</span>
+								</h:commandLink>
+								<h:commandLink actionListener="#{guestPreferences.updateTheme('orange')}">
+									<i class="fa fa-paint-brush" /><span>#{labels.turuncu}</span>
+								</h:commandLink>
+								<h:commandLink actionListener="#{guestPreferences.updateTheme('pink')}">
+									<i class="fa fa-paint-brush" /><span>#{labels.pembe}</span>
+								</h:commandLink>
+
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							</h:form>
+						</li>
+					</ul>
+				</li>
+
+				<li style="padding-bottom: 8px;">
+					<p:commandButton    id="cikis"
+										icon="fa fa-sign-out" 
+										value="#{labels.cikis}"
+										action="#{sessionController.cikis}"
+										style="left:10px; width:92%; text-align:left;" 
+										update=":messages">
+					</p:commandButton>
+				</li>
+			</ul>
+		</div>
+	
+		<h:outputStylesheet library="css" name="custom.css" />
+	</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:composite="http://java.sun.com/jsf/composite"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+		xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+	<composite:interface>
+		<composite:attribute name="currentPageReportTemplate" default="{totalRecords} Kayıttan {startRecord}-{endRecord} Arası" />
+		<composite:attribute name="draggableColumns" default="#{true}" />
+		<composite:attribute name="emptyMessage" default="#{labels.kayit_bulunamadi}" />
+		<composite:attribute name="lazy" default="#{true}" />
+		<composite:attribute name="paginator" default="#{true}" />
+		<composite:attribute name="paginatorPosition" default="bottom" />
+		<composite:attribute name="paginatorTemplate" default="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" />
+		<composite:attribute name="reflow" default="#{true}" />
+		<composite:attribute name="resizableColumns" default="#{true}" />
+		<composite:attribute name="rowKey" default="#{item.id}" />
+		<composite:attribute name="rows" default="10" />
+		<composite:attribute name="rowSelectUpdate" />
+		<composite:attribute name="rowsPerPageTemplate" default="10, 20, 50, 100, {ShowAll|'Tümü'}" />
+		<composite:attribute name="rowStyleClass" />
+		<composite:attribute name="selection" required="#{true}" />
+		<composite:attribute name="selectionMode" default="single" />
+		<composite:attribute name="value" type="org.primefaces.model.LazyDataModel" />
+		<composite:attribute name="widgetVar" />
+	</composite:interface>
+	
+	<composite:implementation>
+		<p:dataTable	var="item" 
+						rowKey="#{cc.attrs.rowKey}" 
+						widgetVar="#{cc.attrs.widgetVar}" 
+						value="#{cc.attrs.value}" 
+						selection="#{cc.attrs.selection}" 
+						selectionMode="#{cc.attrs.selectionMode}" 
+						rows="#{cc.attrs.rows}" 
+						paginator="#{cc.attrs.paginator}" 
+						paginatorPosition="#{cc.attrs.paginatorPosition}" 
+						paginatorTemplate="#{cc.attrs.paginatorTemplate}" 
+						currentPageReportTemplate="#{cc.attrs.currentPageReportTemplate}" 
+						rowsPerPageTemplate="#{cc.attrs.rowsPerPageTemplate}" 
+						rowStyleClass="#{cc.attrs.rowStyleClass}"
+						emptyMessage="#{cc.attrs.emptyMessage}" 
+						reflow="#{cc.attrs.reflow}" 
+						lazy="#{cc.attrs.lazy}" 
+						resizableColumns="#{cc.attrs.resizableColumns}" 
+						draggableColumns="#{cc.attrs.draggableColumns}"
+		>
+	
+			<p:ajax	event="rowSelect" 
+					update="#{cc.attrs.rowSelectUpdate}" 
+			/>
+			
+			<composite:insertChildren />
+		</p:dataTable>
+	</composite:implementation>
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html   lang="tr" xml:lang="tr" xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:pa="http://primefaces.org/apollo"
+		xmlns:tpGenel="http://java.sun.com/jsf/composite/compositeComponents">
+
+	<h:head>
+		<title></title>
+	</h:head>
+	
+	<body>
+		<div class="layout-menu-container margin_top_10 zIndex902">
+			<div class="nano">
+				<div class="nano-content menu-scroll-content">
+					<div class="layout-menu-title" />
+	
+					<h:form>
+						<pa:menu>
+							<p:menuitem value="#{labels.kullanici}" icon="fa fa-fw fa-columns" outcome="/kullanici/kullaniciCrud" rendered="#{true}" />
+						</pa:menu>
+	
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					</h:form>
+	
+					<div class="nano-scroll-footer" />
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
